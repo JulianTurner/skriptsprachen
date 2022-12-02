@@ -24,3 +24,8 @@ if __name__ == '__main__':
     datenhalter = Datenhalter(42)
     # Datenhalter serialisieren
     print(encoder.encode(datenhalter))
+
+
+
+
+
