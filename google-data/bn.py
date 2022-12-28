@@ -48,13 +48,25 @@ def extract_names(filename):
 
   # 1. Open and read file steam
   with open(filename, "r") as file:
+    year = None
+    names = {}
     for line in file:
-      re.findall(year_re, line)
+      if not year:
+        if result := year_re.search(line):
+          year = result[1]
+      else:
+        if result := name_re.search(line):
+          rank = result[1]
+          male = result[2]
+          female = result[3]
 
-  # 2. Get the year with Regex from h3
+          for name in [male, female]:
+            names.setdefault(name, rank)
+          
+
   # 3. Get the names and rank in a dictionary and print it
   # 4. Build a list and print it
-  return
+  return [year] + [f"{name} {rank}" for name, rank in sorted(names.items())]
 
 
 def main():
@@ -75,7 +87,8 @@ def main():
 
   # +++your code here+++
   for arg in args:
-    extract_names(arg)
+    names = extract_names(arg)
+    print(names)
   # For each filename, get the names, then either print the text output
   # or write it to a summary file
   
